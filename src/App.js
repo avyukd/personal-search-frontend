@@ -8,32 +8,38 @@ import {
   Code,
   Grid,
   theme,
+  Input,
+  InputGroup,
+  Button, HStack
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
+import {useState, useEffect} from 'react';
 
 function App() {
+
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
+      <Box>
+        <VStack>
+          <HStack>
+            <Input size="md" placeholder="Search" onChange={handleSearch} />
+            <Button onSubmit={handleSubmit}>Submit</Button>
+          </HStack>
+          <HStack>
+            <p>Results go here</p>
+          </HStack>
+        </VStack>
       </Box>
     </ChakraProvider>
   );
